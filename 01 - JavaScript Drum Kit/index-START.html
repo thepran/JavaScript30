@@ -1,66 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>JS Drum Kit</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="#" type="image/x-icon" />
 </head>
+
 <body>
-
-
   <div class="keys">
-    <div data-key="65" class="key">
+    <div data-key="a" class="a A key" id="first">
       <kbd>A</kbd>
       <span class="sound">clap</span>
     </div>
-    <div data-key="83" class="key">
+    <div data-key="s" class="s key" id="second">
       <kbd>S</kbd>
       <span class="sound">hihat</span>
     </div>
-    <div data-key="68" class="key">
+    <div data-key="d" class="d key" id="third">
       <kbd>D</kbd>
       <span class="sound">kick</span>
     </div>
-    <div data-key="70" class="key">
+    <div data-key="f" class="f key" id="forth">
       <kbd>F</kbd>
       <span class="sound">openhat</span>
     </div>
-    <div data-key="71" class="key">
+    <div data-key="g" class="g key" id="fifth">
       <kbd>G</kbd>
       <span class="sound">boom</span>
     </div>
-    <div data-key="72" class="key">
+    <div data-key="h" class="h key" id="sixth">
       <kbd>H</kbd>
       <span class="sound">ride</span>
     </div>
-    <div data-key="74" class="key">
+    <div data-key="j" class="j key" id="seventh">
       <kbd>J</kbd>
       <span class="sound">snare</span>
     </div>
-    <div data-key="75" class="key">
+    <div data-key="k" class="k key" id="eighth">
       <kbd>K</kbd>
       <span class="sound">tom</span>
     </div>
-    <div data-key="76" class="key">
+    <div data-key="l" class="l key" id="ninth">
       <kbd>L</kbd>
       <span class="sound">tink</span>
     </div>
   </div>
 
-  <audio data-key="65" src="sounds/clap.wav"></audio>
-  <audio data-key="83" src="sounds/hihat.wav"></audio>
-  <audio data-key="68" src="sounds/kick.wav"></audio>
-  <audio data-key="70" src="sounds/openhat.wav"></audio>
-  <audio data-key="71" src="sounds/boom.wav"></audio>
-  <audio data-key="72" src="sounds/ride.wav"></audio>
-  <audio data-key="74" src="sounds/snare.wav"></audio>
-  <audio data-key="75" src="sounds/tom.wav"></audio>
-  <audio data-key="76" src="sounds/tink.wav"></audio>
+  <audio></audio>
 
-<script>
-
-</script>
+  <script>
+    const keys = document.querySelectorAll(".key");
+    function playSound(e) {
+      console.log(e)
+      const audioEl = document.querySelector(`audio`);
+      try {
+        const activeDivEl = document.querySelector(`.${e}`)
 
 
+        if (activeDivEl !== null) {
+          activeDivEl.classList.add('playing')
+
+          setTimeout(() => {
+            activeDivEl.classList.remove('playing')
+          }, 100);
+
+        }
+
+
+        switch (e) {
+
+          case "a":
+          case "A":
+
+            audioEl.src = "sounds/clap.wav";
+
+            audioEl.currentTime = 0;
+            audioEl.play();
+            break;
+
+          case "s":
+          case "S":
+
+            audioEl.src = "sounds/hihat.wav";
+            audioEl.currentTime = 0;
+            audioEl.play();
+            break;
+
+          case "d":
+          case "D":
+
+            audioEl.src = "sounds/kick.wav";
+            audioEl.play();
+            break;
+
+          case "f":
+          case "F":
+            audioEl.src = "sounds/openhat.wav";
+            audioEl.play();
+            break;
+
+          case "g":
+          case "G":
+            audioEl.src = "sounds/boom.wav";
+            audioEl.play();
+            break;
+
+          case "h":
+          case "H":
+            audioEl.src = "sounds/ride.wav";
+            audioEl.play();
+            break;
+
+          case "j":
+          case "J":
+            audioEl.src = "sounds/snare.wav";
+            audioEl.play();
+            break;
+
+          case "k":
+          case "K":
+            audioEl.src = "sounds/tom.wav";
+            audioEl.play();
+            break;
+
+          case "l":
+          case "L":
+            audioEl.src = "sounds/tink.wav";
+            audioEl.play();
+            break;
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    document.addEventListener("keydown", (event) => {
+      playSound(event.key)
+
+    });
+    keys.forEach(element => {
+      element.addEventListener("click", () => {
+        const clickEl = element.getAttribute('data-key')
+        playSound(clickEl)
+
+      });
+    });
+
+
+
+
+  </script>
 </body>
+
 </html>
